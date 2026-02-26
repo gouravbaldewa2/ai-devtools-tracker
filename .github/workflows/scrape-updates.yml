@@ -1,0 +1,30 @@
+name: Scrape AI Dev Tools Updates
+
+on:
+  schedule:
+    # Run daily at 9 AM UTC
+    - cron: '0 9 * * *'
+  workflow_dispatch: # Allow manual triggers
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      
+      - name: Install dependencies
+        run: npm install --workspaces
+      
+      - name: Run scraper
+        working-directory: apps/cloud-agent
+        run: npm run start
+        env:
+          BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
+          BACKEND_API_KEY: ${{ secrets.BACKEND_API_KEY }}
