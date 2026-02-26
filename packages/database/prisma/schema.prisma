@@ -7,7 +7,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 // Enum for product types
@@ -33,12 +33,12 @@ model Update {
   product          Product
   title            String
   announcementDate DateTime @map("announcement_date")
-  keyHighlights    String   @map("key_highlights") // JSON array stored as string
+  keyHighlights    String[] @map("key_highlights")
   version          String?
   changelogUrl     String   @map("changelog_url")
   category         Category @default(FEATURE)
   scrapedAt        DateTime @default(now()) @map("scraped_at")
-  rawContent       String?  @map("raw_content")
+  rawContent       String?  @map("raw_content") @db.Text
   
   createdAt        DateTime @default(now()) @map("created_at")
   updatedAt        DateTime @updatedAt @map("updated_at")
