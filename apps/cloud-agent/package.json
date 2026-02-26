@@ -1,0 +1,25 @@
+{
+  "name": "cloud-agent",
+  "version": "1.0.0",
+  "description": "Oz cloud agent for scraping AI dev tools updates",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts"
+  },
+  "keywords": ["scraper", "oz", "agent"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^23.11.0",
+    "node-fetch": "^3.3.2",
+    "cheerio": "^1.0.0",
+    "shared-types": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "tsx": "^4.21.0",
+    "typescript": "^5"
+  }
+}
