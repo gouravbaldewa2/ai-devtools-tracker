@@ -8,13 +8,17 @@
     "start": "tsx src/index.ts",
     "dev": "tsx watch src/index.ts"
   },
-  "keywords": ["scraper", "oz", "agent"],
+  "keywords": [
+    "scraper",
+    "oz",
+    "agent"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "puppeteer": "^23.11.0",
-    "node-fetch": "^3.3.2",
     "cheerio": "^1.0.0",
+    "node-fetch": "^3.3.2",
+    "puppeteer": "^24.37.5",
     "shared-types": "*"
   },
   "devDependencies": {
