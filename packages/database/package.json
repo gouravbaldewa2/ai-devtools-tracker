@@ -1,0 +1,22 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "description": "Prisma database schema and client for AI Dev Tools Tracker",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "generate": "prisma generate",
+    "migrate": "prisma migrate dev",
+    "studio": "prisma studio",
+    "push": "prisma db push"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.4.1"
+  },
+  "devDependencies": {
+    "prisma": "^7.4.1"
+  },
+  "keywords": ["prisma", "database"],
+  "author": "",
+  "license": "MIT"
+}

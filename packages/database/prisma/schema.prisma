@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Enum for product types
+enum Product {
+  ANTIGRAVITY
+  CURSOR
+  WARP
+  CLAUDE_CODE
+}
+
+// Enum for update categories
+enum Category {
+  FEATURE
+  BUGFIX
+  IMPROVEMENT
+  RELEASE
+  ANNOUNCEMENT
+}
+
+// Main Update model
+model Update {
+  id               String   @id @default(cuid())
+  product          Product
+  title            String
+  announcementDate DateTime @map("announcement_date")
+  keyHighlights    String[] @map("key_highlights")
+  version          String?
+  changelogUrl     String   @map("changelog_url")
+  category         Category @default(FEATURE)
+  scrapedAt        DateTime @default(now()) @map("scraped_at")
+  rawContent       String?  @map("raw_content") @db.Text
+  
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@index([product])
+  @@index([announcementDate])
+  @@index([product, announcementDate])
+  @@map("updates")
+}
