@@ -12,7 +12,8 @@
     "push": "prisma db push"
   },
   "dependencies": {
-    "@prisma/client": "^7.4.1"
+    "@prisma/client": "^7.4.1",
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "prisma": "^7.4.1"
