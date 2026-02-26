@@ -80,11 +80,19 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Status Banner */}
-        <div className="glass p-6 mt-8 text-center">
-          <p className="text-text-secondary">
-            🚧 Coming Soon: Real-time updates tracking every 24 hours
+        {/* CTA Section */}
+        <div className="glass p-8 mt-8 text-center">
+          <h2 className="text-2xl font-bold mb-4">Track Updates in Real-Time</h2>
+          <p className="text-text-secondary mb-6">
+            Get the latest updates from all four AI development tools in one place.
+            Automated tracking every 24 hours.
           </p>
+          <a
+            href="/updates"
+            className="inline-block px-8 py-3 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-cyan-400/50 transition-all"
+          >
+            View All Updates
+          </a>
         </div>
       </main>
     </div>
