@@ -1,0 +1,33 @@
+services:
+  # PostgreSQL Database
+  - type: pserv
+    name: ai-devtools-db
+    plan: free
+    env: docker
+    region: oregon
+
+  # Web Application
+  - type: web
+    name: ai-devtools-tracker
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install --workspaces && npx prisma generate --schema=packages/database/prisma/schema.prisma && cd apps/web && npm run build
+    startCommand: cd apps/web && npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.19.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ai-devtools-db
+          property: connectionString
+      - key: AGENT_API_KEY
+        value: 4caa870fa41ced9fc7d23f410f9ebe212ab3c7659e8fdd5c2b592ec85efc5cd2
+      - key: NODE_ENV
+        value: production
+
+databases:
+  - name: ai-devtools-db
+    plan: free
+    databaseName: ai_devtools_tracker
+    user: ai_devtools_user
