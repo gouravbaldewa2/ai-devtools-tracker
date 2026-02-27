@@ -1,13 +1,29 @@
 import fetch from 'node-fetch';
 import { ScrapedUpdate } from '../types.js';
 
-const API_URL = process.env.BACKEND_API_URL || 'http://localhost:3000/api';
-const API_KEY = process.env.BACKEND_API_KEY || '';
+const DEFAULT_API_URL = 'http://localhost:3000/api';
+
+// Prefer BACKEND_API_URL if provided. Otherwise, if NEXT_PUBLIC_APP_URL is set (as in .env.example),
+// use that as the base URL and append `/api`.
+const API_URL =
+  process.env.BACKEND_API_URL ||
+  (process.env.NEXT_PUBLIC_APP_URL
+    ? `${process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, '')}/api`
+    : DEFAULT_API_URL);
+
+// Prefer BACKEND_API_KEY for backwards compatibility, but default to AGENT_API_KEY
+// (which is what the Next.js API route expects per .env.example).
+const API_KEY = process.env.BACKEND_API_KEY || process.env.AGENT_API_KEY || '';
 
 export async function postUpdates(updates: ScrapedUpdate[]): Promise<boolean> {
   try {
-    console.log(`📤 Posting ${updates.length} updates to API...`);
-    
+    if (!API_KEY) {
+      console.error('❌ Missing API key: set AGENT_API_KEY (or BACKEND_API_KEY)');
+      return false;
+    }
+
+    console.log(`📤 Posting ${updates.length} updates to API (${API_URL})...`);
+
     const response = await fetch(`${API_URL}/updates/bulk`, {
       method: 'POST',
       headers: {
